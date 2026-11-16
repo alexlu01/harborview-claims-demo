@@ -1,0 +1,13 @@
+resources:
+  pipelines:
+    harborview_claims_pipeline:
+      name: harborview-claims-pipeline
+      catalog: ${var.catalog}
+      schema: core
+      serverless: true
+      channel: PREVIEW
+      libraries:
+        - file:
+            path: ../src/pipeline/claims_pipeline.py
+      configuration:
+        catalog: ${var.catalog}

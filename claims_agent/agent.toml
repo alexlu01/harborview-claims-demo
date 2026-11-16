@@ -1,0 +1,27 @@
+schema_version = 1
+
+[agent]
+framework = "langgraph"
+server = "agentbricks"
+deployment_name = "claims-agent"
+
+[session_store]
+name = "claims-agent-sessions"
+
+[tracing]
+experiment_name = "/Shared/claims_ai_workshop/harborview_claims_agent"
+
+[[tools]]
+id = "get_claim"
+auth = "app"
+source = { kind = "uc_function", function = "e2e_ai_workshop_catalog.agent.get_claim" }
+
+[[tools]]
+id = "get_policy_coverage"
+auth = "app"
+source = { kind = "uc_function", function = "e2e_ai_workshop_catalog.agent.get_policy_coverage" }
+
+[[tools]]
+id = "calc_payout"
+auth = "app"
+source = { kind = "uc_function", function = "e2e_ai_workshop_catalog.agent.calc_payout" }

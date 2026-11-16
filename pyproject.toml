@@ -1,0 +1,8 @@
+[project]
+name = "harborview-claims-demo"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["reportlab>=4.0", "pytest>=8", "pypdf>=4", "mlflow>=3.9"]
+[tool.pytest.ini_options]
+pythonpath = ["src", "claims_agent"]
+testpaths = ["tests"]

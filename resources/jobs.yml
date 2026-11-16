@@ -1,0 +1,21 @@
+resources:
+  jobs:
+    harborview_setup:
+      name: harborview-00-setup
+      tasks:
+        - task_key: load_data
+          notebook_task:
+            notebook_path: ../src/data/00_load_data.py
+          environment_key: default
+        - task_key: pipeline
+          depends_on:
+            - task_key: load_data
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.harborview_claims_pipeline.id}
+            full_refresh: true
+      environments:
+        - environment_key: default
+          spec:
+            client: "4"
+            dependencies:
+              - reportlab>=4.0

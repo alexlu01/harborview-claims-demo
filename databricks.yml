@@ -1,0 +1,10 @@
+bundle: { name: harborview-claims-demo }
+variables:
+  catalog: { default: e2e_ai_workshop_catalog }
+  warehouse_id: { description: serverless SQL warehouse id }
+include: [resources/*.yml]
+targets:
+  dev:
+    default: true
+    mode: development
+    workspace: { profile: e2e-ai-workshop }

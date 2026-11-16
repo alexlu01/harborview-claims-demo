@@ -1,0 +1,15 @@
+CATALOG = "e2e_ai_workshop_catalog"
+LLM_SERVICE = "e2e_ai_workshop_catalog.agent.claims_llm"   # Unity Gateway model service (Step 3)
+LLM_PRIMARY = "databricks-kimi-k3"                    # agent model, routed through Unity Gateway
+LLM_FALLBACK = "databricks-claude-sonnet-5-5"
+JUDGE_MODEL = "databricks:/databricks-kimi-k3"
+EMBED_MODEL = "databricks-gte-large-en"
+AIS_ENDPOINT = "harborview_ais"
+AIS_INDEX = f"{CATALOG}.core.policy_chunks_index"
+PROMPT_NAME = f"{CATALOG}.agent.claims_agent_prompt"
+EXPERIMENT = "/Shared/claims_ai_workshop/harborview_claims_agent"  # traces in UC: ops.claims_agent_*
+UC_FUNCTIONS = [f"{CATALOG}.agent.get_claim", f"{CATALOG}.agent.get_policy_coverage", f"{CATALOG}.agent.calc_payout"]
+WAREHOUSE_ID = "e36def022da8a72a"  # Serverless Starter Warehouse
+REQUEST_TAGS = {"project": "claims-workshop"}
+DQM_TABLE = "system.data_quality_monitoring.table_results"  # schema-level anomaly detection on core
+DASHBOARD_ID = "01f1d7b19cb018f9a5b8515d7b51d89a"  # Harborview Claims Agent — Operations

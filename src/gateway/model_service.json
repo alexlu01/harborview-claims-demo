@@ -1,0 +1,19 @@
+{
+  "comment": "Harborview claims agent LLM: governed access, fallback, rate limit, inference logging",
+  "config": {
+    "routing": {
+      "destinations": [
+        {"name": "primary", "destination_type": "DESTINATION_TYPE_PAY_PER_TOKEN_FOUNDATION_MODEL",
+         "pay_per_token_config": {"model": "models/system.ai.databricks-kimi-k3"}, "traffic_percentage": 100}
+      ],
+      "fallback": {"destinations": [
+        {"name": "fallback", "destination_type": "DESTINATION_TYPE_PAY_PER_TOKEN_FOUNDATION_MODEL",
+         "pay_per_token_config": {"model": "models/system.ai.databricks-claude-sonnet-5-5"}}
+      ]}
+    },
+    "rate_limits": [
+      {"key": "RATE_LIMIT_KEY_USER_DEFAULT", "renewal_period": "RATE_LIMIT_RENEWAL_PERIOD_MINUTE", "requests": 60}
+    ],
+    "inference_table": {"parent": "schemas/e2e_ai_workshop_catalog.ops", "table_name_prefix": "claims_llm"}
+  }
+}

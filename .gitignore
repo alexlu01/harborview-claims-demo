@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.databricks/
+build/
+*.egg-info/
+*.pdf
+.env
+uv.lock
+.pytest_cache/
