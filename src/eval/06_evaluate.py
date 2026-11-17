@@ -20,6 +20,8 @@ from eval.scorers import cites_policy_section, coverage_judge
 from common import config as C
 from mlflow.genai.scorers import Correctness, RetrievalGroundedness, Safety
 
+import logging  # the async trace exporter logs a benign "Failed to aggregate token usage" per trace into whatever cell runs next
+logging.getLogger("mlflow.tracing.processor.base_mlflow").setLevel(logging.ERROR)
 os.environ["MLFLOW_TRACING_SQL_WAREHOUSE_ID"] = C.WAREHOUSE_ID
 mlflow.set_experiment(C.EXPERIMENT); mlflow.langchain.autolog()
 

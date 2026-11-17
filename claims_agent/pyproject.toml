@@ -17,6 +17,9 @@ dependencies = [
     "databricks-sdk>=0.124.0",
     "databricks-agents>=1.9.3",
     "mlflow[databricks]>=3.9",
+    # The app runtime ignores uv.lock and re-resolves on every restart. pyarrow 26 needs NumPy 2 (this env resolves 1.26),
+    # which breaks the databricks-connect import, so UCFunctionToolkit gets no default client and every request fails.
+    "pyarrow>=14,<26",
 ]
 
 [build-system]

@@ -1,7 +1,9 @@
 -- Service-policy SQL is transpiled to CEL: only a SQL subset is allowed (no translate/regex), so digits are
 -- masked with nested REPLACE and the digit-only shape ###-##-#### is matched. Form IDs (HV-HO-3) and ISO dates never match.
--- NOTE: the attached policy picks up a replaced body by name after a few minutes. Unsupported SQL (e.g. translate)
--- fails closed: every request through claims_llm is denied with 'a policy on this service could not be evaluated'.
+-- NOTE: the attached service policy is bound to this exact function. Re-running CREATE OR REPLACE (or dropping it) breaks the
+-- binding and the gateway then blocks EVERY request through claims_llm, including the app, with 'references a function that has
+-- been deleted or replaced'. After any re-run, remove and re-attach block_ssn on claims_llm in the Unity Gateway UI.
+-- Unsupported SQL (e.g. translate) also fails closed: every request through claims_llm is denied with 'a policy on this service could not be evaluated'.
 CREATE OR REPLACE FUNCTION e2e_ai_workshop_catalog.agent.block_ssn(event VARIANT)
 RETURNS VARIANT
 LANGUAGE SQL

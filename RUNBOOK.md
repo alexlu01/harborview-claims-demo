@@ -9,7 +9,8 @@ Hero question: *"Is the water damage on claim C-1042 covered, and what is the pa
 
 **One-time workspace setup** (already done on this workspace; repeat on any new one):
 - Previews (Settings → Previews): **Unity Gateway Service Policies**, **AI Prep Search**, **Prompt Registry**. Allow about a minute for them to take effect.
-- In the Unity Gateway UI, attach service policies to `agent.claims_llm`: built-in Jailbreak at rank 1, and custom SQL `agent.block_ssn` at rank 10.
+- In the Unity Gateway UI, attach service policies to `agent.claims_llm`: built-in Jailbreak at rank 1, and custom SQL `agent.block_ssn` at rank 10. **If `policies.sql` is ever re-run, or the function is dropped or replaced, remove and re-attach `block_ssn`.** Otherwise every request through `claims_llm` fails with "references a function that has been deleted or replaced", the app included. Smoke-test it with a harmless prompt before the session.
+- **App smoke test:** the Apps runtime ignores `uv.lock` and re-resolves `claims_agent/pyproject.toml` on every restart, so a loose dependency can break the app overnight (pyarrow 26 broke the `databricks-connect` import and every question failed with `UCFunctionToolkit ... No client provided`; fixed by pinning `pyarrow<26`). Ask the app the hero question before every session.
 - Grants for the app service principal (`agent-bricks-claims-agent`):
 
   | Securable | Grants |
